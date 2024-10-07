@@ -7,81 +7,65 @@ use Illuminate\Http\Request;
 
 class EstudianteController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $estudiantes = Estudiante::all();
-        return response()->json($estudiantes);
+        return view('estudiantes.index', compact('estudiantes'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('estudiantes.form');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'apellido' => 'required|string|max:255',
-            'cedula' => 'required|string|max:255|unique:estudiantes',
-            'email' => 'required|email|max:255|unique:estudiantes',
+        $validated = $request->validate([
             'nombre' => 'required|string|max:255',
-            'telefono' => 'nullable|string|max:255',
+            'apellido' => 'required|string|max:255',
+            'cedula' => 'required|numeric|digits:10|unique:estudiantes,cedula',
+            'email' => 'required|string|email|max:255|unique:estudiantes,email',
+            'telefono' => 'required|string|digits:10',
         ]);
 
-        $estudiante = Estudiante::create($validatedData);
-        return response()->json(['message' => 'Estudiante creado con éxito', 'estudiante' => $estudiante]);
+        Estudiante::create($validated);
+
+        return redirect()->route("estudiantes.index")->with([
+            "message" => "Estudiante creado exitosamente",
+            "type" => "success"
+        ]);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Estudiante $estudiante)
-    {
-        $estudiante = Estudiante::findOrFail($id);
-        return response()->json($estudiante);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Estudiante $estudiante)
     {
-        //
+        return view('estudiantes.form', compact('estudiante'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, $id)
+    public function update(Request $request, Estudiante $estudiante)
     {
-        $validatedData = $request->validate([
-            'apellido' => 'required|string|max:255',
-            'cedula' => 'required|string|max:255|unique:estudiantes,cedula,' . $id,
-            'email' => 'required|email|max:255|unique:estudiantes,email,' . $id,
+        $validated = $request->validate([
             'nombre' => 'required|string|max:255',
-            'telefono' => 'nullable|string|max:255',
+            'apellido' => 'required|string|max:255',
+            'cedula' => 'required|numeric|digits:10|unique:estudiantes,cedula,' . $estudiante->id,
+            'email' => 'required|string|email|max:255|unique:estudiantes,email,' . $estudiante->id,
+            'telefono' => 'required|string|digits:10',
         ]);
-    
-        $estudiante = Estudiante::findOrFail($id);
-        $estudiante->update($validatedData);
-        return response()->json(['message' => 'Estudiante actualizado con éxito', 'estudiante' => $estudiante]);
+
+        $estudiante->update($validated);
+
+        return redirect()->route("estudiantes.index")->with([
+            "message" => "Estudiante actualizado exitosamente",
+            "type" => "success"
+        ]);
     }
-    /**
-     * Remove the specified resource from storage.
-     */
+
     public function destroy(Estudiante $estudiante)
     {
-        $estudiante = Estudiante::findOrFail($id);
         $estudiante->delete();
-        return response()->json(['message' => 'Estudiante eliminado con éxito']);
+
+        return redirect()->route("estudiantes.index")->with([
+            "message" => "Estudiante eliminado exitosamente",
+            "type" => "success"
+        ]);
     }
 }

@@ -298,7 +298,12 @@ return [
         
         [
             'text' => 'Estudiante',
-            'url' => 'admin/settings',
+            'route' => 'estudiantes.index',
+            'icon' => 'fas fa-fw fa-user',
+        ],
+        [
+            'text' => 'Clase',
+            'route' => 'clases.index',
             'icon' => 'fas fa-fw fa-user',
         ],
         
