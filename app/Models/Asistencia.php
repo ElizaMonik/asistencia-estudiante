@@ -9,6 +9,7 @@ class Asistencia extends Model
 {
     use HasFactory;
     
+    public $timestamps = false;
     protected $table = 'asistencias';
 
     protected $fillable = [

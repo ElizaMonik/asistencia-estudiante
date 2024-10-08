@@ -14,12 +14,13 @@ class ReporteController extends Controller
         $reportes = Reporte::all(); 
         return view('reportes.index', compact('reportes'));
     }
-
+            
     public function create()
     {
         $clases = Clase::all(); 
         $estudiantes = Estudiante::all(); 
-        return view('reportes.form'); 
+
+        return view('reportes.form', compact('clases', 'estudiantes'));
     }
 
     public function store(Request $request)
@@ -43,8 +44,7 @@ class ReporteController extends Controller
     {
         $clases = Clase::all(); 
         $estudiantes = Estudiante::all(); 
-        return view('reportes.form', compact('reporte'));
-    }
+        return view('reportes.form', compact('reporte', 'clases', 'estudiantes'));    }
 
     public function update(Request $request, Reporte $reporte)
     {

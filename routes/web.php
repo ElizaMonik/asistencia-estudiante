@@ -3,6 +3,7 @@
 use App\Http\Controllers\ClaseController;
 use App\Http\Controllers\ProfesorController;
 use App\Http\Controllers\CursoController;
+use App\Http\Controllers\EstudianteController;
 use App\Http\Controllers\AsistenciaController;
 use App\Http\Controllers\ReporteController;
 use Illuminate\Support\Facades\Route;
