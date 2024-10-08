@@ -14,6 +14,19 @@ class Reporte extends Model
     protected $table = 'reportes';
 
     protected $fillable = [
-        'clase_id', 'estudiante_id', 'estado', 'fecha'
+        'clase_id',
+        'estudiante_id',
+        'estado',
+        'fecha',
     ];
+
+    public function clase()
+    {
+        return $this->belongsTo(Clase::class);
+    }
+
+    public function estudiante()
+    {
+        return $this->belongsTo(Estudiante::class);
+    }
 }

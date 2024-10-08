@@ -302,13 +302,18 @@ return [
             'icon' => 'fas fa-fw fa-user',
         ],
         [
-            'text' => 'Clase',
-            'route' => 'clases.index',
+            'text' => 'Profesor',
+            'route' => 'profesores.index',
             'icon' => 'fas fa-fw fa-user',
         ],
         [
             'text' => 'Curso',
             'route' => 'cursos.index',
+            'icon' => 'fas fa-fw fa-user',
+        ],
+        [
+            'text' => 'Clase',
+            'route' => 'clases.index',
             'icon' => 'fas fa-fw fa-user',
         ],
         [

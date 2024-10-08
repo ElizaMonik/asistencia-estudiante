@@ -15,7 +15,7 @@
                 <div class="card">
                     <div class="card-header">
                         <a href="{{ route('asistencias.create') }}" class="btn btn-primary btn-sm" style="font-size: 14px">
-                            Nueva Asistencia
+                            Registrar Asistencia
                         </a>
                     </div>
                     <div class="card-body">
@@ -32,8 +32,8 @@
                         <table id="dataTable" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th>Estudiante ID</th>
-                                    <th>Clase ID</th>
+                                    <th>Clase</th>
+                                    <th>Estudiante</th>
                                     <th>Estado</th>
                                     <th>Acciones</th>
                                 </tr>
@@ -41,8 +41,8 @@
                             <tbody>
                                 @foreach ($asistencias as $asistencia)
                                     <tr>
-                                        <td>{{ $asistencia->estudiante_id }}</td>
-                                        <td>{{ $asistencia->clase_id }}</td>
+                                        <td>{{ $asistencia->clase->fecha_hora }} - {{ $asistencia->clase->curso->nombre }}</td>
+                                        <td>{{ $asistencia->estudiante->nombre }} {{ $asistencia->estudiante->apellido }}</td>
                                         <td>{{ $asistencia->estado }}</td>
                                         <td>
                                             <div class="d-flex">
@@ -57,8 +57,7 @@
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title" id="deleteModalLabel{{ $asistencia->id }}">
-                                                                    Confirmar Eliminación</h5>
+                                                                <h5 class="modal-title" id="deleteModalLabel{{ $asistencia->id }}">Confirmar Eliminación</h5>
                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>

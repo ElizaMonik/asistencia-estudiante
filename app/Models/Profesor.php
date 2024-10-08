@@ -5,29 +5,24 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Estudiante extends Model
+class Profesor extends Model
 {
     use HasFactory;
 
     public $timestamps = false; 
 
-    protected $table = 'estudiantes';
+    protected $table = 'profesores';
 
     protected $fillable = [
         'apellido',
         'cedula',
         'email',
         'nombre',
-        'telefono',
+        'password',
     ];
+
     public function cursos()
     {
-        return $this->belongsToMany(Curso::class, 'curso_estudiante');
+        return $this->hasMany(Curso::class);
     }
-
-    public function asistencias()
-    {
-        return $this->hasMany(Asistencia::class);
-    }
-    
 }

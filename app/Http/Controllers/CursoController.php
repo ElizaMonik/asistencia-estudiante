@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Curso;
+use App\Models\Profesor;
 use Illuminate\Http\Request;
 
 class CursoController extends Controller
@@ -15,65 +16,57 @@ class CursoController extends Controller
 
     public function create()
     {
-        return view('cursos.form');
+        $profesores = Profesor::all();
+        return view('cursos.form', compact('profesores'));
     }
 
     public function store(Request $request)
     {
-        $request->validate([
-            'codigo' => 'required|max:255',
-            'descripcion' => 'required|max:255',
-            'nombre' => 'required|max:255',
-            'profesor_id' => 'required|exists:profesores,id'
+        $validated = $request->validate([
+            'codigo' => 'required|string|max:255',
+            'nombre' => 'required|string|max:255',
+            'descripcion' => 'nullable|string|max:255',
+            'profesor_id' => 'nullable|exists:profesores,id',
         ]);
 
-        Curso::create($request->all());
+        Curso::create($validated);
 
-        return redirect()->route('cursos.index')->with(['message' => 'Curso registrado satisfactoriamente', 'type' => 'success']);
-    
+        return redirect()->route("cursos.index")->with([
+            "message" => "Curso creado exitosamente",
+            "type" => "success"
+        ]);
     }
 
-    public function show(string $id)
+    public function edit(Curso $curso)
     {
-        return Curso::find($id);
+        $profesores = Profesor::all();
+        return view('cursos.form', compact('curso', 'profesores'));
     }
 
-    public function edit(string $id)
+    public function update(Request $request, Curso $curso)
     {
-        $curso = Curso::find($id);
-        return view('cursos.form', compact('curso'));
-    }
-
-    public function update(Request $request, string $id)
-    {
-        $request->validate([
-            'codigo' => 'required|max:255',
-            'descripcion' => 'required|max:255',
-            'nombre' => 'required|max:255',
-            'profesor_id' => 'required|exists:usuarios,id'
+        $validated = $request->validate([
+            'codigo' => 'required|string|max:255',
+            'nombre' => 'required|string|max:255',
+            'descripcion' => 'nullable|string|max:255',
+            'profesor_id' => 'nullable|exists:profesores,id',
         ]);
 
-        $curso = Curso::findOrFail($id);
+        $curso->update($validated);
 
-        $curso->fill($request->all());
-        if ($curso->isClean()) {
-            return redirect()->back()->with(['message' => 'Por lo menos un valor debe cambiar', 'type' => 'danger']);
-        }
-
-        $curso->save();
-
-        return redirect()->route('cursos.index')->with(['message' => 'Curso actualizado satisfactoriamente', 'type' => 'success']);
-    
+        return redirect()->route("cursos.index")->with([
+            "message" => "Curso actualizado exitosamente",
+            "type" => "success"
+        ]);
     }
 
-    public function destroy(string $id)
+    public function destroy(Curso $curso)
     {
-        $curso = Curso::findOrFail($id);
         $curso->delete();
 
-        return redirect()->route('cursos.index')->with([
-            'message' => 'Curso eliminado satisfactoriamente', 
-            'type' => 'success'
+        return redirect()->route("cursos.index")->with([
+            "message" => "Curso eliminado exitosamente",
+            "type" => "success"
         ]);
     }
 }

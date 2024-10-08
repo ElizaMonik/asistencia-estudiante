@@ -63,7 +63,7 @@ class ReporteController extends Controller
         ]);
     }
 
-    public function destroy(Reporte $reporte)
+    public function destroy(Reporte $reporte)   
     {
         $reporte->delete();
 

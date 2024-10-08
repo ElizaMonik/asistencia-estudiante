@@ -1,10 +1,10 @@
 @extends('adminlte::page')
 
-@section('title', 'Clases')
+@section('title', 'Profesores')
 
 @section('content_header')
     <div class="d-flex justify-content-between">
-        <h1>Clases</h1>
+        <h1>Profesores</h1>
     </div>
 @stop
 
@@ -14,8 +14,8 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <a href="{{ route('clases.create') }}" class="btn btn-primary btn-sm" style="font-size: 14px">
-                            Nueva Clase
+                        <a href="{{ route('profesores.create') }}" class="btn btn-primary btn-sm" style="font-size: 14px">
+                            Nuevo Profesor
                         </a>
                     </div>
                     <div class="card-body">
@@ -32,40 +32,44 @@
                         <table id="dataTable" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th>Fecha y Hora</th>
-                                    <th>Curso</th>
+                                    <th>Nombre</th>
+                                    <th>Apellido</th>
+                                    <th>Cédula</th>
+                                    <th>Email</th>
                                     <th>Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($clases as $clase)
+                                @foreach ($profesores as $profesor)
                                     <tr>
-                                        <td>{{ $clase->fecha_hora }}</td>
-                                        <td>{{ $clase->curso->nombre }}</td>
+                                        <td>{{ $profesor->nombre }}</td>
+                                        <td>{{ $profesor->apellido }}</td>
+                                        <td>{{ $profesor->cedula }}</td>
+                                        <td>{{ $profesor->email }}</td>
                                         <td>
                                             <div class="d-flex">
-                                                <a href="{{ route('clases.edit', $clase->id) }}" class="btn btn-warning btn-sm mr-1">
+                                                <a href="{{ route('profesores.edit', $profesor->id) }}" class="btn btn-warning btn-sm mr-1">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
-                                                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal{{ $clase->id }}">
+                                                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal{{ $profesor->id }}">
                                                     <i class="fas fa-trash"></i>
                                                 </button>
                                                 <!-- Modal para confirmar la eliminación -->
-                                                <div class="modal fade" id="deleteModal{{ $clase->id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel{{ $clase->id }}" aria-hidden="true">
+                                                <div class="modal fade" id="deleteModal{{ $profesor->id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel{{ $profesor->id }}" aria-hidden="true">
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title" id="deleteModalLabel{{ $clase->id }}">Confirmar Eliminación</h5>
+                                                                <h5 class="modal-title" id="deleteModalLabel{{ $profesor->id }}">Confirmar Eliminación</h5>
                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                ¿Estás seguro de que deseas eliminar esta clase?
+                                                                ¿Estás seguro de que deseas eliminar este profesor?
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                                                <form action="{{ route('clases.destroy', $clase->id) }}" method="POST">
+                                                                <form action="{{ route('profesores.destroy', $profesor->id) }}" method="POST">
                                                                     @csrf
                                                                     @method('DELETE')
                                                                     <button type="submit" class="btn btn-danger">Eliminar</button>

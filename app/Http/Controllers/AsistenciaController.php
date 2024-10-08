@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Asistencia;
+use App\Models\Clase;
+use App\Models\Estudiante;
 use Illuminate\Http\Request;
 
 class AsistenciaController extends Controller
 {
-
     public function index()
     {
         $asistencias = Asistencia::all();
@@ -16,7 +17,9 @@ class AsistenciaController extends Controller
 
     public function create()
     {
-        return view('asistencias.form');
+        $clases = Clase::all(); 
+        $estudiantes = Estudiante::all(); 
+        return view('asistencias.form', compact('clases', 'estudiantes')); 
     }
 
     public function store(Request $request)
@@ -24,24 +27,22 @@ class AsistenciaController extends Controller
         $validated = $request->validate([
             'estado' => 'required|in:PRESENTE,AUSENTE,TARDE',
             'clase_id' => 'required|exists:clases,id',
-            'estudiante_id' => 'required|exists:estudiantes,id'
+            'estudiante_id' => 'required|exists:estudiantes,id',
         ]);
 
         Asistencia::create($validated);
-        return redirect()->route('asistencias.index')->with([
-            'message' => 'Asistencia creada',
-            'type' => 'success'
-        ]);
-    }
 
-    public function show(string $id)
-    {
-        //
+        return redirect()->route("asistencias.index")->with([
+            "message" => "Asistencia registrada exitosamente",
+            "type" => "success"
+        ]);
     }
 
     public function edit(Asistencia $asistencia)
     {
-        return view('asistencias.form', compact('asistencia'));
+        $clases = Clase::all(); 
+        $estudiantes = Estudiante::all(); 
+        return view('asistencias.form', compact('asistencia', 'clases', 'estudiantes'));
     }
 
     public function update(Request $request, Asistencia $asistencia)
@@ -49,13 +50,14 @@ class AsistenciaController extends Controller
         $validated = $request->validate([
             'estado' => 'required|in:PRESENTE,AUSENTE,TARDE',
             'clase_id' => 'required|exists:clases,id',
-            'estudiante_id' => 'required|exists:estudiantes,id'
+            'estudiante_id' => 'required|exists:estudiantes,id',
         ]);
 
         $asistencia->update($validated);
-        return redirect()->route('asistencias.index')->with([
-            'message' => 'Asistencia actualizada',
-            'type' => 'success'
+
+        return redirect()->route("asistencias.index")->with([
+            "message" => "Asistencia actualizada exitosamente",
+            "type" => "success"
         ]);
     }
 
@@ -63,9 +65,9 @@ class AsistenciaController extends Controller
     {
         $asistencia->delete();
 
-        return redirect()->route('asistencias.index')->with([
-            'message' => 'Asistencia eliminada exitosamente',
-            'type' => 'success'
+        return redirect()->route("asistencias.index")->with([
+            "message" => "Asistencia eliminada exitosamente",
+            "type" => "success"
         ]);
     }
 }
