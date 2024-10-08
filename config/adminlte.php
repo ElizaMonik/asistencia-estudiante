@@ -316,6 +316,11 @@ return [
             'route' => 'asistencias.index',
             'icon' => 'fas fa-fw fa-user',
         ],
+        [
+            'text' => 'Reporte',
+            'route' => 'reportes.index',
+            'icon' => 'fas fa-fw fa-user',
+        ],
         
     ],
 

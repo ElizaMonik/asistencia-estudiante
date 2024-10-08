@@ -4,6 +4,7 @@ use App\Http\Controllers\EstudianteController;
 use App\Http\Controllers\ClaseController;
 use App\Http\Controllers\CursoController;
 use App\Http\Controllers\AsistenciaController;
+use App\Http\Controllers\ReporteController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -19,5 +20,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('clases', ClaseController::class);
     Route::resource('cursos', CursoController::class );
     Route::resource('asistencias', AsistenciaController::class);
+    Route::resource('reportes', ReporteController::class);
+
     
 });
