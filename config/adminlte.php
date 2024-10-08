@@ -306,6 +306,16 @@ return [
             'route' => 'clases.index',
             'icon' => 'fas fa-fw fa-user',
         ],
+        [
+            'text' => 'Curso',
+            'route' => 'cursos.index',
+            'icon' => 'fas fa-fw fa-user',
+        ],
+        [
+            'text' => 'Asistencia',
+            'route' => 'asistencias.index',
+            'icon' => 'fas fa-fw fa-user',
+        ],
         
     ],
 

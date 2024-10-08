@@ -2,63 +2,70 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Asistencia;
 use Illuminate\Http\Request;
 
 class AsistenciaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
-        //
+        $asistencias = Asistencia::all();
+        return view('asistencias.index', compact('asistencias'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('asistencias.form');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'estado' => 'required|in:PRESENTE,AUSENTE,TARDE',
+            'clase_id' => 'required|exists:clases,id',
+            'estudiante_id' => 'required|exists:estudiantes,id'
+        ]);
+
+        Asistencia::create($validated);
+        return redirect()->route('asistencias.index')->with([
+            'message' => 'Asistencia creada',
+            'type' => 'success'
+        ]);
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function edit(Asistencia $asistencia)
     {
-        //
+        return view('asistencias.form', compact('asistencia'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Asistencia $asistencia)
     {
-        //
+        $validated = $request->validate([
+            'estado' => 'required|in:PRESENTE,AUSENTE,TARDE',
+            'clase_id' => 'required|exists:clases,id',
+            'estudiante_id' => 'required|exists:estudiantes,id'
+        ]);
+
+        $asistencia->update($validated);
+        return redirect()->route('asistencias.index')->with([
+            'message' => 'Asistencia actualizada',
+            'type' => 'success'
+        ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function destroy(Asistencia $asistencia)
     {
-        //
+        $asistencia->delete();
+
+        return redirect()->route('asistencias.index')->with([
+            'message' => 'Asistencia eliminada exitosamente',
+            'type' => 'success'
+        ]);
     }
 }

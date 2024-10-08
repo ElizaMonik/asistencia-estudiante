@@ -24,7 +24,7 @@ class CursoController extends Controller
             'codigo' => 'required|max:255',
             'descripcion' => 'required|max:255',
             'nombre' => 'required|max:255',
-            'profesor_id' => 'required|exists:usuarios,id'
+            'profesor_id' => 'required|exists:profesores,id'
         ]);
 
         Curso::create($request->all());
@@ -71,6 +71,9 @@ class CursoController extends Controller
         $curso = Curso::findOrFail($id);
         $curso->delete();
 
-        return redirect()->route('cursos.index')->with(['message' => 'Curso eliminado satisfactoriamente', 'type' => 'success']);
+        return redirect()->route('cursos.index')->with([
+            'message' => 'Curso eliminado satisfactoriamente', 
+            'type' => 'success'
+        ]);
     }
 }
