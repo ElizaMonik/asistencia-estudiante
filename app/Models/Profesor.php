@@ -19,6 +19,7 @@ class Profesor extends Model
         'email',
         'nombre',
         'password',
+        'imagen',
     ];
 
     public function cursos()

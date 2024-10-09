@@ -16,48 +16,48 @@
         <div class="row">
             @foreach ($cursos as $curso)
                 <div class="col-md-4">
-                    <div class="card shadow-sm" style="border-radius: 15px;">
+                    <div class="card shadow-sm" style="border-radius: 15px; border: 1px solid #ddd;"> <!-- Añadida línea de borde -->
                         <!-- Header con código y título alineados -->
-                        <div class="card-header text-white" style="background: linear-gradient(45deg, #6a11cb, #2575fc); border-top-left-radius: 15px; border-top-right-radius: 15px;">
-                            <!-- Código del curso -->
-                            <h5 class="card-title font-weight-bold text-center" style="margin-bottom: 0;">
-                                {{ $curso->codigo }}
-                            </h5>
-                            <!-- Nombre del curso con espacio adecuado -->
-                            <p class="card-subtitle text-center" style="margin-top: 10px;">
-                                {{ $curso->nombre }}
-                            </p>
-                        </div>
-
-                        <!-- Contenido de la tarjeta -->
-                        <div class="card-body text-center">
+                        <div class="card-header text-white" style="background: linear-gradient(45deg, #6a11cb, #2575fc); border-top-left-radius: 15px; border-top-right-radius: 15px; position: relative; height: 120px;"> <!-- Altura reducida -->
+                            <div class="d-flex flex-column align-items-start">
+                                <!-- Código del curso -->
+                                <h5 class="card-title font-weight-bold" style="margin-bottom: 0;">
+                                    {{ $curso->codigo }}
+                                </h5>
+                                <!-- Nombre del curso con espacio adecuado -->
+                                <p class="card-subtitle" style="margin-top: 10px;">
+                                    {{ $curso->nombre }}
+                                </p>
+                            </div>
                             @if($curso->profesor->imagen)
-                                <!-- Si hay una imagen, mostrarla -->
-                                <div class="mb-3">
-                                    <img src="{{ asset('path_to_professor_image/'.$curso->profesor->imagen) }}" class="rounded-circle" alt="Foto del profesor" width="80" height="80">
+                                <!-- Imagen del profesor -->
+                                <div class="profesor-imagen">
+                                    <img src="{{ asset('path_to_professor_image/'.$curso->profesor->imagen) }}" class="rounded-circle" alt="Foto del profesor">
                                 </div>
                             @else
-                                <!-- Si no hay imagen, mostrar un ícono por defecto -->
-                                <div class="mb-3">
-                                    <img src="{{ asset('path_to_default_image/default_professor.png') }}" class="rounded-circle" alt="Imagen por defecto" width="80" height="80">
+                                <!-- Imagen por defecto si no hay -->
+                                <div class="profesor-imagen">
+                                    <img src="{{ asset('path_to_default_image/default_professor.png') }}" class="rounded-circle" alt="Imagen por defecto">
                                 </div>
                             @endif
                         </div>
 
-                        <!-- Nombre del docente -->
-                        <p class="text-muted text-center" style="margin-top: 10px;">{{ $curso->profesor->nombre }} {{ $curso->profesor->apellido }}</p>
+                        <!-- Contenido de la tarjeta -->
+                        <div class="card-body text-center" style="padding: 30px;"> <!-- Más espacio blanco -->
+                            <!-- Nombre del docente -->
+                            <p class="text-muted" style="margin-top: 10px;">{{ $curso->profesor->nombre }} {{ $curso->profesor->apellido }}</p>
+                        </div>
 
                         <!-- Pie de la tarjeta -->
-                        <div class="card-footer text-center">
+                        <div class="card-footer text-right" style="background-color: #f8f9fa;">
                             <a href="{{ route('cursos.edit', $curso->id) }}" class="btn btn-warning btn-sm">
-                                <i class="fas fa-edit"></i> Editar
+                                <i class="fas fa-edit"></i>
                             </a>
                             <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal{{ $curso->id }}">
-                                <i class="fas fa-trash"></i> Eliminar
+                                <i class="fas fa-trash"></i>
                             </button>
-                            <!-- Botón para subir una imagen -->
                             <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#uploadPhotoModal{{ $curso->id }}">
-                                <i class="fas fa-camera"></i> Subir Foto
+                                <i class="fas fa-camera"></i>
                             </button>
                         </div>
                     </div>
@@ -114,7 +114,6 @@
                         </div>
                     </div>
                 </div>
-
             @endforeach
         </div>
     </div>
@@ -124,24 +123,39 @@
     <style>
         .card {
             margin-bottom: 20px;
+            border: 1px solid #ddd; /* Bordes visibles */
         }
+
         .card-header {
             padding: 10px;
-            color: #fff;
             font-size: 1.2em;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative; /* Para posicionar la imagen */
+            height: 120px; /* Tamaño más pequeño para el fondo morado/celeste */
         }
+
         .card-subtitle {
-            margin-top: 10px; /* Añadir espacio debajo del código del curso */
+            margin-top: 10px; /* Espacio debajo del código del curso */
         }
-        .card-body img {
+
+        .profesor-imagen {
+            position: absolute;
+            top: 50%;
+            right: 10px; /* Imagen en el borde derecho */
+            transform: translateY(-50%);
+        }
+
+        .profesor-imagen img {
+            width: 80px;
+            height: 80px;
             border: 3px solid #fff;
         }
-        .text-muted {
-            margin-top: 10px; /* Añadir espacio debajo del nombre del profesor */
-        }
+
         .card-footer {
-            display: flex;
-            justify-content: space-around; /* Asegura un espaciado adecuado entre botones */
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd; /* Línea en el pie de la tarjeta */
         }
     </style>
 @stop
