@@ -23,6 +23,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('cursos', CursoController::class );
     Route::resource('asistencias', AsistenciaController::class);
     Route::resource('reportes', ReporteController::class);
+    Route::post('cursos/{id}/upload-photo', [CursoController::class, 'uploadPhoto'])->name('cursos.upload_photo');
 
     
 });

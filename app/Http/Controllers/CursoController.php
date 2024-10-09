@@ -69,4 +69,29 @@ class CursoController extends Controller
             "type" => "success"
         ]);
     }
+
+    // Nueva función para subir la foto del profesor
+    public function uploadPhoto(Request $request, $id)
+    {
+        // Validar la imagen
+        $request->validate([
+            'photo' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+        ]);
+
+        // Buscar el profesor asociado al curso
+        $profesor = Profesor::findOrFail($id);
+
+        // Generar un nombre único para la imagen
+        $fileName = time() . '.' . $request->photo->extension();
+
+        // Mover la imagen a la carpeta de imágenes del profesor
+        $request->photo->move(public_path('images/profesores'), $fileName);
+
+        // Actualizar la ruta de la imagen en el modelo del profesor
+        $profesor->imagen = $fileName;
+        $profesor->save();
+
+        // Redirigir con un mensaje de éxito
+        return redirect()->route('cursos.index')->with('success', 'Foto del profesor subida exitosamente.');
+    }
 }
