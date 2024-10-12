@@ -295,7 +295,15 @@ return [
 
     'menu' => [
 
-        
+        [
+            'type' => 'darkmode-widget',
+            'topnav_right' => true,  
+        ],
+        [
+            'type' => 'fullscreen-widget',
+            'topnav_right' => true,
+        ],
+        ['header' => 'Gestión Académica'],
         [
             'text' => 'Estudiante',
             'route' => 'estudiantes.index',
@@ -304,27 +312,28 @@ return [
         [
             'text' => 'Profesor',
             'route' => 'profesores.index',
-            'icon' => 'fas fa-fw fa-user',
+            'icon' => 'fas fa-fw fa-chalkboard-teacher',
         ],
         [
             'text' => 'Curso',
             'route' => 'cursos.index',
-            'icon' => 'fas fa-fw fa-user',
+            'icon' => 'fas fa-fw fa-folder-open',
         ],
         [
             'text' => 'Clase',
             'route' => 'clases.index',
-            'icon' => 'fas fa-fw fa-user',
+            'icon' => 'fas fa-fw fa-file-alt',
         ],
+        ['header' => 'Registro y Reporte de Asistencias'],
         [
             'text' => 'Asistencia',
             'route' => 'asistencias.index',
-            'icon' => 'fas fa-fw fa-user',
+            'icon' => 'fas fa-fw fa-clipboard-check',
         ],
         [
             'text' => 'Reporte',
             'route' => 'reportes.index',
-            'icon' => 'fas fa-fw fa-user',
+            'icon' => 'fas fa-fw fa-file-pdf',
         ],
         
     ],

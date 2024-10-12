@@ -20,6 +20,7 @@ class Estudiante extends Model
         'nombre',
         'telefono',
     ];
+
     public function cursos()
     {
         return $this->belongsToMany(Curso::class, 'curso_estudiante');
@@ -29,5 +30,4 @@ class Estudiante extends Model
     {
         return $this->hasMany(Asistencia::class);
     }
-    
 }
