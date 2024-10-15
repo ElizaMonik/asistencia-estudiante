@@ -9,6 +9,17 @@
 @section('content')
     <div class="card">
         <div class="card-body">
+            @if (session('errors'))
+                <script>
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'La contraseña debe tener al menos 8 caracteres, incluyendo una letra mayúscula, una letra minúscula y un número.',
+                        confirmButtonText: 'Ok'
+                    });
+                </script>
+            @endif
+
             @if (isset($profesor))
                 <form action="{{ route('profesores.update', ['profesor' => $profesor->id]) }}" method="POST">
                     @method('PUT')
@@ -40,6 +51,11 @@
                     <div class="form-group">
                         <label for="password">Contraseña</label>
                         <input type="password" class="form-control" id="password" name="password" {{ !isset($profesor) ? 'required' : '' }}>
+                        @if ($errors->has('password'))
+                            <small class="form-text text-danger">La contraseña debe tener al menos 8 caracteres, incluyendo una letra mayúscula, una letra minúscula y un número.</small>
+                        @else
+                            <small class="form-text text-muted">Mínimo 8 caracteres</small> <!-- Mensaje informativo -->
+                        @endif
                     </div>
 
                     <button type="submit" class="btn btn-primary">Guardar</button>
@@ -50,4 +66,19 @@
 
 @section('css')
     <link rel="stylesheet" href="/css/admin_custom.css">
+@stop
+
+@section('js')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        @if ($errors->has('password'))
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'La contraseña debe tener al menos 8 caracteres, incluyendo una letra mayúscula, una letra minúscula y un número.',
+                confirmButtonText: 'Ok'
+            });
+        @endif
+    </script>
 @stop

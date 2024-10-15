@@ -40,8 +40,8 @@
                             <tbody>
                                 @foreach ($reportes as $reporte)
                                     <tr>
-                                        <td>{{ $reporte->clase->nombre }}</td>
-                                        <td>{{ $reporte->estudiante->nombre }}</td>
+                                        <td>{{ $reporte->clase ? $reporte->clase->nombre : 'Sin clase' }}</td>
+                                        <td>{{ $reporte->estudiante ? $reporte->estudiante->nombre : 'Sin estudiante' }}</td>
                                         <td>{{ $reporte->estado }}</td>
                                         <td>{{ $reporte->fecha }}</td>
                                         <td>

@@ -25,7 +25,9 @@ class ProfesorController extends Controller
             'apellido' => 'required|string|max:255',
             'cedula' => 'required|string|max:255|unique:profesores,cedula',
             'email' => 'required|string|email|max:255|unique:profesores,email',
-            'password' => 'required|string|min:8',
+            'password' => 'required|string|min:8|regex:/[A-Z]/|regex:/[a-z]/|regex:/[0-9]/', // Debe tener al menos una letra mayúscula, una minúscula y un número
+        ], [
+            'email.unique' => 'No se puede repetir el correo',
         ]);
 
         Profesor::create($validated);
@@ -49,13 +51,16 @@ class ProfesorController extends Controller
             'cedula' => 'required|string|max:255|unique:profesores,cedula,' . $profesor->id,
             'email' => 'required|string|email|max:255|unique:profesores,email,' . $profesor->id,
             'password' => 'nullable|string|min:8',
+        ], [
+            'email.unique' => 'No se puede repetir el correo',
         ]);
 
         $profesor->update($validated);
 
         return redirect()->route("profesores.index")->with([
             "message" => "Profesor actualizado exitosamente",
-            "type" => "success"
+            "type" => "success",
+            'password' => 'nullable|string|min:8|regex:/[A-Z]/|regex:/[a-z]/|regex:/[0-9]/', // Misma validación para la actualización
         ]);
     }
 

@@ -9,6 +9,19 @@
 @section('content')
     <div class="card">
         <div class="card-body">
+            <!-- Mostrar alerta solo si hay un error en el campo 'email' -->
+            @if ($errors->has('email'))
+                <script>
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: '{{ $errors->first('email') }}',
+                        confirmButtonText: 'Ok'
+                    });
+                </script>
+            @endif
+
+            <!-- Formulario -->
             @if (isset($estudiante))
                 <form action="{{ route('estudiantes.update', ['estudiante' => $estudiante->id]) }}" method="POST">
                     @method('PUT')
@@ -50,4 +63,19 @@
 
 @section('css')
     <link rel="stylesheet" href="/css/admin_custom.css">
+@stop
+
+@section('js')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        @if ($errors->has('email'))
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: '{{ $errors->first('email') }}',
+                confirmButtonText: 'Ok'
+            });
+        @endif
+    </script>
 @stop

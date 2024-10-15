@@ -11,10 +11,11 @@ class ReporteController extends Controller
 {
     public function index()
     {
-        $reportes = Reporte::all(); 
+        // Cargar las relaciones 'clase' y 'estudiante'
+        $reportes = Reporte::with(['clase', 'estudiante'])->get(); 
         return view('reportes.index', compact('reportes'));
     }
-            
+    
     public function create()
     {
         $clases = Clase::all(); 
@@ -44,7 +45,8 @@ class ReporteController extends Controller
     {
         $clases = Clase::all(); 
         $estudiantes = Estudiante::all(); 
-        return view('reportes.form', compact('reporte', 'clases', 'estudiantes'));    }
+        return view('reportes.form', compact('reporte', 'clases', 'estudiantes'));
+    }
 
     public function update(Request $request, Reporte $reporte)
     {
@@ -63,7 +65,7 @@ class ReporteController extends Controller
         ]);
     }
 
-    public function destroy(Reporte $reporte)   
+    public function destroy(Reporte $reporte)
     {
         $reporte->delete();
 

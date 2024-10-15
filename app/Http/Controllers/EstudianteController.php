@@ -26,7 +26,9 @@ class EstudianteController extends Controller
             'cedula' => 'required|numeric|digits:10|unique:estudiantes,cedula',
             'email' => 'required|string|email|max:255|unique:estudiantes,email',
             'telefono' => 'required|string|digits:10',
-        ]);
+        ],[
+            'email.unique' => 'No se puede repetir el correo',
+     ]);
 
         Estudiante::create($validated);
 
@@ -49,8 +51,9 @@ class EstudianteController extends Controller
             'cedula' => 'required|numeric|digits:10|unique:estudiantes,cedula,' . $estudiante->id,
             'email' => 'required|string|email|max:255|unique:estudiantes,email,' . $estudiante->id,
             'telefono' => 'required|string|digits:10',
-        ]);
-
+        ],[
+                'email.unique' => 'No se puede repetir el correo',
+         ]);
         $estudiante->update($validated);
 
         return redirect()->route("estudiantes.index")->with([

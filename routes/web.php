@@ -28,4 +28,5 @@ Route::middleware('auth')->group(function () {
 
     // Define the route for uploading a photo
     Route::post('cursos/{curso}/upload_photo', [CursoController::class, 'uploadPhoto'])->name('cursos.upload_photo');
+    
 });

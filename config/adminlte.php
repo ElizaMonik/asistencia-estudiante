@@ -29,8 +29,9 @@ return [
     | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Basic-Configuration
     |
     */
-
-    'use_ico_only' => false,
+    
+     /*LOGO DEL TITULO */
+    'use_ico_only' => true,
     'use_full_favicon' => false,
 
     /*
@@ -64,11 +65,12 @@ return [
     */
 
     'logo' => '<b>We</b> Makers',
-    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
-    'logo_img_class' => 'brand-image img-circle elevation-3',
+    'logo_img' => 'vendor/adminlte/dist/img/logo.png',
+    'logo_img_class' => 'brand-image img-circle 
+    elevation-3 logo-lg',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
-    'logo_img_alt' => 'Admin Logo',
+    'logo_img_alt' => 'We Makers logo',
 
     /*
     |--------------------------------------------------------------------------
@@ -133,12 +135,13 @@ return [
     |
     */
 
+    /*cabecera de cerrar session*/
     'usermenu_enabled' => true,
-    'usermenu_header' => false,
+    'usermenu_header' => true,
     'usermenu_header_class' => 'bg-primary',
-    'usermenu_image' => false,
-    'usermenu_desc' => false,
-    'usermenu_profile_url' => false,
+    'usermenu_image' => true,
+    'usermenu_desc' => true,
+    'usermenu_profile_url' => true,
 
     /*
     |--------------------------------------------------------------------------

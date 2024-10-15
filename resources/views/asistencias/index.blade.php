@@ -41,7 +41,7 @@
                             <tbody>
                                 @foreach ($asistencias as $asistencia)
                                     <tr>
-                                        <td>{{ $asistencia->clase->fecha_hora }} - {{ $asistencia->clase->curso->nombre }}</td>
+                                        <td>{{ $asistencia->clase->curso->nombre }}</td>
                                         <td>{{ $asistencia->estudiante->nombre }} {{ $asistencia->estudiante->apellido }}</td>
                                         <td>{{ $asistencia->estado }}</td>
                                         <td>
