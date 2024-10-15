@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'We Makers',
+    'title' => 'We Markers',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -64,7 +64,7 @@ return [
     |
     */
 
-    'logo' => '<b>We</b> Makers',
+    'logo' => '<b>We</b> Markers',
     'logo_img' => 'vendor/adminlte/dist/img/logo.png',
     'logo_img_class' => 'brand-image img-circle 
     elevation-3 logo-lg',
@@ -141,7 +141,7 @@ return [
     'usermenu_header_class' => 'bg-primary',
     'usermenu_image' => true,
     'usermenu_desc' => true,
-    'usermenu_profile_url' => true,
+    'usermenu_profile_url' => false,
 
     /*
     |--------------------------------------------------------------------------
